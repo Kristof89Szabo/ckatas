@@ -58,12 +58,8 @@ public class Store {
     }
 
     public static void addProduct(Map<String, Integer> map, String productName) {
-        if (!map.containsKey(productName)) {
-            map.put(productName, 1);
-        } else {
-            int quantity = map.get(productName);
-            map.put(productName, ++quantity);
-        }
+        int quantity = map.getOrDefault(productName, 0);
+        map.put(productName, ++quantity);
     }
 
 
