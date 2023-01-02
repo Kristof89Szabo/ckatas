@@ -2,39 +2,67 @@ package com.grad.kata19;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 public class WordChain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        String firstWord = "cat";
+        String secondWord = "dog";
+        //        String firstWord = "lead";
+        //        String secondWord = "gold";
+        //        String firstWord = "ruby";
+        //        String secondWord = "code";
+
 
         Path path = Path.of("src/main/java/com/grad/kata19/wordlist.txt");
-        List<String> allWord = readFile(path);
-        List<String> wordsWithoutSpecialCharacters = pickNormalWords(allWord);
-        Map<Integer, List<String>> sepWords = separateWordsByLength(wordsWithoutSpecialCharacters);
-        List<String> usedWordsForChain = findWordChains("cat", "dog", sepWords);
-
+        Set<String> allWord = readFile(path);
+        Map<Integer, List<String>> sepWords = separateWordsByLength(allWord);
+        List<String> usedWordsForChain = findWordChains(firstWord, secondWord, sepWords);
+        System.out.println(usedWordsForChain);
     }
 
-    private static List<String> findWordChains(String word1, String word2, Map<Integer, List<String>> words) {
-        if (word1.length() != word2.length()) {
-            return null;
+    private static List<String> findWordChains(String firstWord, String lastWord, Map<Integer, List<String>> allWord) {
+        List<String> dictionary = allWord.get(firstWord.length());
+        List<String> wordChain = new ArrayList<>();
+        wordChain.add(firstWord);
+        String checkingWord = firstWord;
+        boolean canFind = true;
+        while (canFind) {
+            String prev = checkingWord;
+            for (String currentWord : dictionary) {
+                int otherLetter = 0;
+                int sameLetter = 0;
+
+                for (int i = 0; i < checkingWord.length(); i++) {
+                    if (currentWord.charAt(i) != checkingWord.charAt(i) && currentWord.charAt(i) == lastWord.charAt(i)) {
+                        otherLetter++;
+                    }
+                    if (checkingWord.charAt(i) == currentWord.charAt(i)) {
+                        sameLetter++;
+                    }
+                }
+                if (otherLetter == 1 && sameLetter == checkingWord.length() - 1) {
+                    checkingWord = currentWord;
+                    wordChain.add(checkingWord);
+                }
+            }
+            canFind = !prev.equals(checkingWord);
         }
-        //TODO Megcsinalni
-        return null;
+        return wordChain;
     }
 
-    private static Map<Integer, List<String>> separateWordsByLength(List<String> wordsWithoutSpecialCharacters) {
+    private static Map<Integer, List<String>> separateWordsByLength(Set<String> words) {
         Map<Integer, List<String>> retMap = new HashMap<>();
-
-        for (String word : wordsWithoutSpecialCharacters) {
+        for (String word : words) {
             List<String> b = retMap.getOrDefault(word.length(), new ArrayList<>());
             b.add(word);
             retMap.put(word.length(), b);
@@ -42,28 +70,12 @@ public class WordChain {
         return retMap;
     }
 
-    private static List<String> pickNormalWords(List<String> allWord) {
-        List<String> pickedWords = new ArrayList<>();
-        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-        for (String word : allWord) {
-            Matcher m = p.matcher(word);
-            if (!m.find() && word.length() > 2) {
-                pickedWords.add(word);
-            }
-
-        }
-        return pickedWords;
-    }
-
-    private static List<String> readFile(Path path) {
-        List<String> words = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+    private static Set<String> readFile(Path path) {
+        Set<String> words = new HashSet<>();
+        try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.ISO_8859_1)) {
             String line;
-
             while ((line = reader.readLine()) != null) {
-                words.add(line);
-
-
+                words.add(line.toLowerCase());
             }
         } catch (IOException e) {
             e.printStackTrace();
