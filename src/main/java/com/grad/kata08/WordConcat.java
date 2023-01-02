@@ -6,65 +6,80 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class WordConcat {
 
 
     public static void main(String[] args) {
-        List<String> sixLengthWords = new ArrayList<>();
-        List<String> otherLengthWords = new ArrayList<>();
         String path = "src/main/resources/wordlist.txt";
 
-        uploadHashMapWithSixSizeKeysListWithOthers(path, sixLengthWords, otherLengthWords);
-        Map<String, String[]> hmap = findConcatWords(sixLengthWords, otherLengthWords);
+        List<String> allLines = readFile(path);
+        Map<Integer, List<String>> separatedWordsByLength = separateWordsByLength(allLines);
 
-        for (Map.Entry<String, String[]> entry : hmap.entrySet()){
-            System.out.println("Original word: " + entry.getKey() + " 2 words: " + Arrays.toString(entry.getValue()));
-        }
+        Map<String, String[]> collectedSixLengthWordWithSubWords = findConcatWords(separatedWordsByLength);
+        System.out.println("Map size: " + collectedSixLengthWordWithSubWords.size());
     }
 
-    private static Map<String, String[]> findConcatWords(List<String> sixLengthWords, List<String> otherLengthWords) {
-        long start = System.currentTimeMillis();
-        Map<String, String[]> hMap = new HashMap<>();
-        for (int i = 0; i < sixLengthWords.size(); i++) {
-            String checkingWord = sixLengthWords.get(i);
-            for (int j = 1; j < checkingWord.length(); j++) {
-                String firstPart = checkingWord.substring(0, j);
-                String secondPart = checkingWord.substring(j);
-                if (otherLengthWords.contains(firstPart) && otherLengthWords.contains(secondPart)) {
-                    hMap.put(checkingWord, new String[]{firstPart, secondPart});
-                }
+    private static Map<String, String[]> findConcatWords(Map<Integer, List<String>> allSeparatedWords) {
+        List<String> otherLengthWords = collectOtherLengthWordsThanSix(allSeparatedWords);
+
+        Map<String, String[]> originalWordWithSubWords = new HashMap<>();
+
+        for (String checkingWord : allSeparatedWords.get(6)) {
+            addWordToCollectionIfThereSubWordConcat(otherLengthWords, originalWordWithSubWords, checkingWord);
+        }
+
+        return originalWordWithSubWords;
+    }
+
+    private static List<String> collectOtherLengthWordsThanSix(Map<Integer, List<String>> allSeparatedWords) {
+        List<String> otherWords = new ArrayList<>();
+        for (Map.Entry<Integer, List<String>> entry : allSeparatedWords.entrySet()) {
+            if (entry.getKey() != 6) {
+                otherWords.addAll(entry.getValue());
             }
-
-
         }
-        long end = (System.currentTimeMillis() - start);
-        System.out.println("Took: " + TimeUnit.MILLISECONDS.toSeconds(end));
-        return hMap;
+        return otherWords;
     }
 
-    private static void uploadHashMapWithSixSizeKeysListWithOthers(String path, List<String> sixLengthWords, List<String> otherLengthWords) {
+    private static void addWordToCollectionIfThereSubWordConcat(List<String> otherLengthWords, Map<String, String[]> originalWordWithSubWords, String checkingWord) {
+        for (int j = 1; j < checkingWord.length(); j++) {
+            Word word = new Word(checkingWord.substring(0, j), checkingWord.substring(j));
+            if (otherLengthWords.contains(word.firstPart) && otherLengthWords.contains(word.secondPart)) {
+                originalWordWithSubWords.put(checkingWord, new String[]{word.firstPart, word.secondPart});
+                break;
+            }
+        }
+    }
 
+    private static List<String> readFile(String path) {
+
+        List<String> collectedLines = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(Path.of(path), StandardCharsets.ISO_8859_1)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String sanStr = line.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-                if (sanStr.length() == 6) {
-                    sixLengthWords.add(sanStr);
-                } else {
-                    otherLengthWords.add(sanStr);
-                }
+                collectedLines.add(line);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return collectedLines;
+    }
 
+    private static Map<Integer, List<String>> separateWordsByLength(List<String> lines) {
+        return lines.stream()
+                .map(WordConcat::sanitizeCurrentWord)
+                .collect(groupingBy(String::length));
+    }
+
+    private static String sanitizeCurrentWord(String word) {
+        return word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 
 }
