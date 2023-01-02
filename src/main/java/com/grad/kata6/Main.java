@@ -1,49 +1,61 @@
 package com.grad.kata6;
 
+import javax.xml.xpath.XPath;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class Main {
 
-    static Map<Integer, List<Word>> anagramMap = new HashMap<>();
+    static Map<String, List<Word>> anagramMap = new HashMap<>();
 
     public static void main(String[] args) {
         String path = "src/main/resources/wordlist.txt";
-        readFile(path, anagramMap);
+        List<String> wholeFileData = readFile(path, anagramMap);
+        addInputToHasMap(wholeFileData, anagramMap);
         writeOutHashMapValues();
     }
 
-    public static void readFile(String path, Map<Integer, List<Word>> anagramMap) {
-        try (BufferedReader reader = Files.newBufferedReader(Path.of(path), StandardCharsets.ISO_8859_1)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                addInputToHasMap(line, anagramMap);
-            }
+    public static List<String> readFile(String path, Map<String, List<Word>> anagramMap) {
+        List<String> lines = new ArrayList<>();
+        Path currentPath = Path.of(path);
+        try (Stream<String> readLine = Files.lines(currentPath, StandardCharsets.ISO_8859_1)) {
+            readLine.forEach(lines::add);
         } catch (IOException exception) {
             System.out.println("Error: " + exception.getMessage());
         }
+        return lines;
     }
 
-    static void addInputToHasMap(String input, Map<Integer, List<Word>> anagramMap) {
-        Word w = new Word(input);
-        Integer hashCode = w.hashCode();
-        if (!anagramMap.containsKey(hashCode)) {
-            anagramMap.put(hashCode, new ArrayList<>(List.of(w)));
-        } else {
-            anagramMap.get(hashCode).add(new Word(input.toLowerCase()));
+    static void addInputToHasMap(List<String> wholeFileData, Map<String, List<Word>> anagramMap) {
+        for (String line : wholeFileData) {
+            Word w = new Word(line);
+            String keySortedWord = getWordLettersSorted(w);
+            if (!anagramMap.containsKey(keySortedWord)) {
+                anagramMap.put(keySortedWord, new ArrayList<>(List.of(w)));
+            } else {
+                anagramMap.get(keySortedWord).add(new Word(line.toLowerCase()));
+            }
         }
+    }
+
+    private static String getWordLettersSorted(Word word) {
+        char[] tempArray = word.wordStr.toCharArray();
+        Arrays.sort(tempArray);
+        return new String(tempArray);
     }
 
     private static void writeOutHashMapValues() {
         int rowCounter = 1;
-        for (Map.Entry<Integer, List<Word>> h : anagramMap.entrySet()) {
+        for (Map.Entry<String, List<Word>> h : anagramMap.entrySet()) {
             if (h.getValue().size() > 1) {
                 System.out.print(rowCounter + " " + h.getValue() + "\n");
                 rowCounter++;

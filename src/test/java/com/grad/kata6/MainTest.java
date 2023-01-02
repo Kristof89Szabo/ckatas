@@ -15,11 +15,11 @@ class MainTest {
     @DisplayName("Should add 2 input under one key")
     void test_shouldAdd2InputUnderOneKey() {
         //Given
-        Map<Integer, List<Word>> hMap = new HashMap<>();
+        Map<String, List<Word>> hMap = new HashMap<>();
 
         //When
-        Main.addInputToHasMap("kutya", hMap);
-        Main.addInputToHasMap("tyuka", hMap);
+        Main.addInputToHasMap(List.of("kutya"), hMap);
+        Main.addInputToHasMap(List.of("tyuka"), hMap);
 
 
         //Then
@@ -30,13 +30,13 @@ class MainTest {
     @DisplayName("Should add 4 input under two key")
     void test_shouldAdd4InputUnderTwoKey() {
         //Given
-        Map<Integer, List<Word>> hMap = new HashMap<>();
+        Map<String, List<Word>> hMap = new HashMap<>();
 
         //When
-        Main.addInputToHasMap("kutya", hMap);
-        Main.addInputToHasMap("caci", hMap);
-        Main.addInputToHasMap("tyuka", hMap);
-        Main.addInputToHasMap("cica", hMap);
+        Main.addInputToHasMap(List.of("kutya"), hMap);
+        Main.addInputToHasMap(List.of("caci"), hMap);
+        Main.addInputToHasMap(List.of("tyuka"), hMap);
+        Main.addInputToHasMap(List.of("cica"), hMap);
 
         //Then
         assertEquals(2, hMap.size());
