@@ -1,7 +1,5 @@
 package com.grad.kata6;
 
-import javax.xml.xpath.XPath;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
