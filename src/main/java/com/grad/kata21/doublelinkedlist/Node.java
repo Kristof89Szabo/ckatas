@@ -3,19 +3,19 @@ package com.grad.kata21.doublelinkedlist;
 import java.util.Objects;
 
 public class Node {
-    String value;
+    String label;
 
 
     Node prevNode;
     Node nextNode;
 
-    public Node(String value) {
-        this.value = value;
+    public Node(String label) {
+        this.label = label;
     }
 
     @Override
     public String toString() {
-        return value;
+        return label;
     }
 
     @Override
@@ -23,11 +23,11 @@ public class Node {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return Objects.equals(value, node.value);
+        return Objects.equals(label, node.label);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(label);
     }
 }

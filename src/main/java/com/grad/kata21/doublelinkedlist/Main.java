@@ -14,7 +14,7 @@ public class Main {
 
         Node s = new Node("B");
         DoubleLinkedList.delete(list, s);
-        System.out.println("Yes");
+        DoubleLinkedList.printList(list);
 
     }
 }

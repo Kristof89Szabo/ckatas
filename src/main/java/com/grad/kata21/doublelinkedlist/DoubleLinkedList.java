@@ -32,7 +32,7 @@ public class DoubleLinkedList {
 
         Node actualNode = list.head;
         while (searchedNode == null) {
-            if (actualNode.value.equals(searchedValue)) {
+            if (actualNode.label.equals(searchedValue)) {
                 searchedNode = actualNode;
             } else {
                 actualNode = actualNode.nextNode;
@@ -66,6 +66,15 @@ public class DoubleLinkedList {
 
         return isNodeDeleted;
 
+    }
+
+    public static void printList(DoubleLinkedList list) {
+        Node currentNode = list.head;
+        System.out.println("DoubleLinkedList: ");
+        while (currentNode != null) {
+            System.out.println(currentNode.label + " ");
+            currentNode = currentNode.nextNode;
+        }
     }
 
 }
