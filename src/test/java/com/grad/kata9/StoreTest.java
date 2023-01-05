@@ -45,7 +45,7 @@ class StoreTest {
     }
 
     @Nested
-    class NoSpecialPrices {
+    class NoSpecialPricesConstant {
 
         @Test
         @DisplayName("Calculate one product basket")
@@ -88,7 +88,7 @@ class StoreTest {
 
 
     @Nested
-    class WithSpecialPrices {
+    class WithSpecialPricesConstant {
 
         @Test
         @DisplayName("Calculate two product basket")
