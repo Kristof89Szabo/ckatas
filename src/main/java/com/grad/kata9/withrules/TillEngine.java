@@ -11,7 +11,8 @@ public class TillEngine {
     public Integer calculateTotalPrice(Map<String, List<Item>> collectedItems) {
         int total = 0;
 
-        //FIXME Hosszu tavon nem managelheto
+
+//        FIXME Hosszu tavon nem managelheto
         for (Map.Entry<String, List<Item>> entry : collectedItems.entrySet()) {
             String productName = entry.getKey();
             if (productName.equals("A")) {
