@@ -3,12 +3,13 @@
 30 tabla - 100 oszlop tablankent es kellenenek aggregalt adatok is.
 
 Class megkozelites:
-Minden egy objektum. Ha aggregalt adat kell esetleg akkor vegig kell menni az 
+Minden egy objektum. Ha aggregalt adat kell esetleg akkor vegig kell menni az
 osszes objektum azonosos fieldjen. Csak parszor kell lenyulni az adatbazisba.
 Heap esetleg megtelhet , ha sok objektummal dolgozunk/tarolunk.
+Merevebb struktura, uj class-t kell letrehozni, ha valtozik a kivant adat.
+Konnyebb tesztelhetoseg.
 
 Heap:
-Adatbazis optimalizalva van aggregalt lekerdezesekre. Tobbszor kell 
+Adatbazis optimalizalva van aggregalt lekerdezesekre. Tobbszor kell
 lenyulni az adatbazisba -> Nem eroforrasbarat.
-Azonos objektumokat optimalisabban tarolja. 
-Gyorsab a kereses egy HashMap-nem, mint mondjuk egy List-ben.
+Nem kell minden fieldet felhuzni az adatbazisbol -> java oldalon kevesebb eroforras.
