@@ -1,22 +1,16 @@
 ### Kata12: http://codekata.com/kata/kata12-best-sellers/
 
-Best selling?
+Best selling - Legtobb eladott darabszam
 
-- A legtobb eladott darabszam?
-- A legtobb profit
-- Legtobb review?
+List being updated each hour implementacio:
+Ha minden oraban ujraszamolnank mi a top10 product akkor egy amazon meretu cegnel hatalmas terhet rakna a
+serverre/adatbazisra ugyan ez a helyzet a real time list updatnel is(X millioan raszabadulnak a fooldalra).
 
-Best selling items over the last 24 hours:
-
-- Create a scheduled task, hogy osszegyujtse az
-  10 itemet egy adott logika alapjan.
-- Ezeket egy TopTenClass.class listajaba el tudnank menteni.
+Egy sceduled task-al letarolnam egy FIFO queue-ba minden oraba eladott mondjuk top1000 termeket es annak darabszamat.
+Igy uj lekerdezesnel 2 szamolas kell. A first ora es last ora alapjan modositani ezt a top10-et.
 
 Only update the list once per day:
 
-- timeZonekat vegyuk-e figyelembe?
-
-We need the list updated in real time:
-
-- Nem javasolnap, mert egy Amazonnal amikor X millioan raszabadulnak a fooldalra
-  akkor nagy terhet rakhat akar ez a lekerdezes is a serverre/adatbazisra.
+Egy kapcsolo tablaba raknam a product ID-t es egy quantity oszlopot. Ahanyszor vesznek ebbol a termekbol novelnem
+a quantity-t egyel. Igy naponta egyszer kellene leszurni a top 10et, ha ez megvan akkor utana lehet a quantity oszlopot
+0-ra allitani 
