@@ -49,13 +49,25 @@ public class Football {
         while ((line = reader.readLine()) != null) {
             String newLine = line.trim();
             if (Character.isDigit(newLine.charAt(0))) {
-                String team = line.substring(7, 20).trim();
-                Integer goalTo = Integer.parseInt(line.substring(43, 45));
-                Integer goalFrom = Integer.parseInt(line.substring(50, 52));
-                Integer difference = Math.abs(goalTo - goalFrom);
+                String team = getCurrentTeam(line);
+                Integer goalTo = getScore(line, 43, 45);
+                Integer goalFrom = getScore(line, 50, 52);
+                Integer difference = calculateDifference(goalTo, goalFrom);
                 goalDifference.put(team, difference);
             }
         }
         return goalDifference;
+    }
+
+    private static int calculateDifference(Integer goalTo, Integer goalFrom) {
+        return Math.abs(goalTo - goalFrom);
+    }
+
+    private static int getScore(String line, Integer start, Integer end) {
+        return Integer.parseInt(line.substring(start, end).trim());
+    }
+
+    private static String getCurrentTeam(String line) {
+        return line.substring(7, 20).trim();
     }
 }

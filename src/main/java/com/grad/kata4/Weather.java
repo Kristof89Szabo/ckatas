@@ -53,15 +53,22 @@ public class Weather {
         int dayCounter = 1;
         String line;
         while ((line = reader.readLine()) != null) {
-            Double dailyMax = Double.parseDouble(line.substring(4, 8).trim().replaceAll("\\D", ""));
-            Double dailyMin = Double.parseDouble(line.substring(8, 14).trim().replaceAll("\\D", ""));
-            Double tempSpread = dailyMax - dailyMin;
+            Double dailyMax = clearOutData(line, 4, 8);
+            Double dailyMin = clearOutData(line, 8, 14);
+            Double tempSpread = calculateTempSpread(dailyMax, dailyMin);
             days.put(dayCounter, tempSpread);
             dayCounter++;
-
         }
         return days;
 
+    }
+
+    private static double calculateTempSpread(Double dailyMax, Double dailyMin) {
+        return dailyMax - dailyMin;
+    }
+
+    private static double clearOutData(String line, Integer start, Integer end) {
+        return Double.parseDouble(line.substring(start, end).trim().replaceAll("\\D", ""));
     }
 
     private static void skipHeaders(BufferedReader reader) throws IOException {
