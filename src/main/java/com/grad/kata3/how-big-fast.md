@@ -25,24 +25,24 @@
 
 150 character * 2 byte = 300 byte
 
-20000 * 300 = 6000000bit  = around 5859.38 kilobit =  5.7221 MB
+20000 * 300 = 6000000bit = around 5859.38 kilobit = 5.7221 MB
 
 ## **3.**
 
-//TODO
+Level szamitas:
+https://www.baeldung.com/cs/binary-tree-number-of-nodes-level
 
 ## How Fast?
 
 ## **1.**
 
-1 byte = 2 bit
-27 byte      = 56 bit
+1 byte = 8 bit
+27 byte = 216 bit
 
 A4 page-re kb 2500 karaktert lehet irni stadard 11-es betumerettel.
 
 2500 * 2 byte = 5000 byte
-1200 oldal * 5000 = 6.000.000 byte ( 6 misi) = 6MB
-
+1200 oldal * 5000 = 6.000.000 byte = 6MB
 
 56k baud modem can download 56kb de feltoltes csak 33.6kb/s:
 - 23 perc es 45 masodperc

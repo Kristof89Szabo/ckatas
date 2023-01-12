@@ -8,6 +8,7 @@ public class Calculate {
         calculateBinaryDigits(1000);
         calculateBinaryDigits(1000000);
         calculateBinaryDigits(1000000000);
+        calculateBinaryDigits(8000000000L);
 
     }
 
