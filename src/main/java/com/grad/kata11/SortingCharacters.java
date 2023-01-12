@@ -13,9 +13,8 @@ public class SortingCharacters {
     }
 
     public static String decodeString(String originalString) {
-        Map<Character, Integer> ascii = new HashMap<>();
         String removedWhitespaces = sanitizeOriginalString(originalString);
-        countEachCharacterFromString(ascii, removedWhitespaces);
+        Map<Character, Integer> ascii = countEachCharacterFromString(removedWhitespaces);
         return sortCountedCharacter(ascii);
     }
 
@@ -31,7 +30,8 @@ public class SortingCharacters {
         return builder.toString();
     }
 
-    private static void countEachCharacterFromString(Map<Character, Integer> ascii, String sanitizedSentence) {
+    private static Map<Character, Integer> countEachCharacterFromString(String sanitizedSentence) {
+        Map<Character, Integer> ascii = new HashMap<>();
         for (int i = 0; i < sanitizedSentence.length(); i++) {
             Character character = sanitizedSentence.charAt(i);
             if (!ascii.containsKey(character)) {
@@ -41,5 +41,6 @@ public class SortingCharacters {
                 ascii.put(character, ++num);
             }
         }
+        return ascii;
     }
 }
