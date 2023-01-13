@@ -16,7 +16,7 @@ public class Main {
     static Map<String, List<String>> anagramMap = new HashMap<>();
 
     public static void main(String[] args) {
-        String path = "codekata/src/main/resources/wordlist.txt";
+        String path = "src/main/resources/wordlist.txt";
         List<String> wholeFileData = readFile(path);
         addInputToHasMap(wholeFileData, anagramMap);
         writeOutHashMapValues();
