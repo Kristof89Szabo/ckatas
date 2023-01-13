@@ -45,10 +45,11 @@ A4 page-re kb 2500 karaktert lehet irni stadard 11-es betumerettel.
 1200 oldal * 5000 = 6.000.000 byte = 6MB
 
 56k baud modem can download 56kb de feltoltes csak 33.6kb/s:
-- 23 perc es 45 masodperc
+33600 bits/sec / 8bits/byte = 4200 byte/sec
+
+6.000.000 byte / 4200 byte/sec = 1428.57 sec = 23 perc es 80 masodperc
 
 [Calculator](https://www.meridianoutpost.com/resources/etools/calculators/calculator-file-download-time.php)
-
 
 ## **2.**
 
@@ -58,7 +59,7 @@ A4 page-re kb 2500 karaktert lehet irni stadard 11-es betumerettel.
 
 16 hosszu password. 96 lehetseges karakter. 1 ms to check the generated password.
 
-16 ^ 96 = 3.9402E115 cobinations number.
+16 ^ 96 = 3.9402E115 cobinations number. //6,634,204,312,890,625 combination -> 210 ev
 
-This is not  good approach to crack a password.
+This is not good approach to crack a password.
 
