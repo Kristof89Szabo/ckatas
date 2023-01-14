@@ -3,7 +3,9 @@ package com.grad.kata16.rules;
 import com.grad.kata16.domains.Membership;
 import com.grad.kata16.domains.Product;
 
-public class MembershipRule extends Rule implements EmailSender {
+public class MembershipRule extends Rule {
+
+    EmailSenderService emailSenderService = new EmailSenderService();
 
     public void applyRuleOnProduct(Product product) {
 
@@ -12,8 +14,8 @@ public class MembershipRule extends Rule implements EmailSender {
             sendEmailToMembershipOwner();
         }
     }
-    @Override
+
     public void sendEmailToMembershipOwner() {
-        System.out.println("sent email about active status");
+        emailSenderService.sendEmailToMembershipOwner("Sent email about active status");
     }
 }
