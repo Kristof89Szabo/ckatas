@@ -25,7 +25,7 @@
 
 150 character * 2 byte = 300 byte
 
-20000 * 300 = 6000000bit = around 5859.38 kilobit = 5.7221 MB
+20000 * 300 = 6.000.000 byte = around 6000 kilobit = 6 MB
 
 ## **3.**
 
@@ -37,7 +37,6 @@ https://www.baeldung.com/cs/binary-tree-number-of-nodes-level
 ## **1.**
 
 1 byte = 8 bit
-27 byte = 216 bit
 
 A4 page-re kb 2500 karaktert lehet irni stadard 11-es betumerettel.
 
