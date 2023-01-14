@@ -37,15 +37,15 @@ Bab konzerv magaban:
   - Alkohol 15%, Alapveto elelmiszerek 10%, Edessegek: 12% stbstb.
 
 ### **Szamitas:** (Az ado nem kerult szamitasra az alabbi egyenletben)
-| Beszerzes | 0.78 |
-| ----------- | ----------- |
-| Koltseg | 0.12 |
-| Eladas | 100 |
-| Nyereseg | 0.10 |
+| Beszerzes | 0.60 |
+|-----------|------|
+| Koltseg   | 0.12 |
+| Eladas    | 90   |
+| Nyereseg  | 0.18 |
 
-0.10(nyereseg) : 100(eladas) = 0.1
+0.18(nyereseg) : 90(eladas) = 0.002
 
-0.1 * 100 = 0.1 :  **10% haszonkulcs.**
+0.002 * 100 = 0.2 :  **20% haszonkulcs.**
 
 ---
 2L Kola:
@@ -59,12 +59,23 @@ Bab konzerv magaban:
 34 / 430 = 0.079
 
 0.079 * 100 = 7.9 ->
-Nem felel meg a minimum kituzott 10%-os haszonkulcsnak. Az eladasi arat kell novelni / koltsegeket faragni / beszerzesi arat faragni. 
-
+Nem felel meg a minimum kituzott 10%-os haszonkulcsnak. Az eladasi arat kell novelni / koltsegeket faragni / beszerzesi
+arat faragni.
 
 ### Kulonbozo strategiak
 
-Meg kell vizsgalnunk, hogy a kulonbozo akciok reven a kituzott 10%-os haszonkulcs elvesztese megterul-e esetleg, ha a vasarlo mas termekeket is megvesz
-ami nem akcios. 
+Meg kell vizsgalnunk, hogy a kulonbozo akciok reven a kituzott 10%-os haszonkulcs elvesztese megterul-e esetleg, ha a
+vasarlo mas termekeket is megvesz
+ami nem akcios.
 
 [Remek cikk](https://gremmedia.hu/legjobb-arkepzesi-modszerek-es-strategiak)
+
+### Kerekites
+
+Nem hiszem, hogy letezik, ha penzrol beszelunk. Akar 1 cent is hosszu evek alatt sok sok millio minuszt jelenthetnek.
+Hasznaljuk BigDecimal, BigInteger osztalyokat.
+
+A költség és ár nem ugyan az.
+Koltsegnek nevezzuk minden olyan penzmozgast ami negativan hat a ceg penz balancara. -> Aru beszerzesi ara, szalitas,
+fizetesek stbstb.
+Ar: Egy termek ara a koltseges es a netto profit egyuttese.
