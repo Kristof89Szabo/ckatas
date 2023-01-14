@@ -1,7 +1,5 @@
 package com.grad.kata08;
 
-import java.util.Objects;
-
 public class Word {
 
     String firstPart;

@@ -22,7 +22,8 @@ public class WordConcat {
         Map<Integer, List<String>> separatedWordsByLength = separateWordsByLength(allLines);
 
         Map<String, String[]> collectedSixLengthWordWithSubWords = findConcatWords(separatedWordsByLength);
-        System.out.println("Map size: " + collectedSixLengthWordWithSubWords.size());
+
+        System.out.println("Map size1: " + collectedSixLengthWordWithSubWords.size());
     }
 
     private static Map<String, String[]> findConcatWords(Map<Integer, List<String>> allSeparatedWords) {
@@ -57,6 +58,22 @@ public class WordConcat {
         }
     }
 
+    private static Map<Integer, List<String>> separateWordsByLength(List<String> lines) {
+        return lines.stream()
+                .filter(word -> word.length() <= 6)
+                .filter(word -> !isStringUpperCase(word))
+                .map(WordConcat::sanitizeCurrentWord)
+                .collect(groupingBy(String::length));
+    }
+
+    private static String sanitizeCurrentWord(String word) {
+        return word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
+
+    private static boolean isStringUpperCase(String str) {
+        return str.equals(str.toUpperCase());
+    }
+
     private static List<String> readFile(String path) {
 
         List<String> collectedLines = new ArrayList<>();
@@ -70,16 +87,6 @@ public class WordConcat {
             e.printStackTrace();
         }
         return collectedLines;
-    }
-
-    private static Map<Integer, List<String>> separateWordsByLength(List<String> lines) {
-        return lines.stream()
-                .map(WordConcat::sanitizeCurrentWord)
-                .collect(groupingBy(String::length));
-    }
-
-    private static String sanitizeCurrentWord(String word) {
-        return word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 
 }
