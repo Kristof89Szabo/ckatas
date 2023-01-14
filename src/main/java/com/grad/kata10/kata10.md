@@ -9,7 +9,7 @@ Heap esetleg megtelhet , ha sok objektummal dolgozunk/tarolunk.
 Merevebb struktura, uj class-t kell letrehozni, ha valtozik a kivant adat.
 Konnyebb tesztelhetoseg.
 
-Heap:
+Hash:
 Adatbazis optimalizalva van aggregalt lekerdezesekre. Tobbszor kell
 lenyulni az adatbazisba -> Nem eroforrasbarat.
 Nem kell minden fieldet felhuzni az adatbazisbol -> java oldalon kevesebb eroforras.
