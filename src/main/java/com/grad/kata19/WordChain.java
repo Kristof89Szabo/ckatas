@@ -6,21 +6,22 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.util.stream.Collectors.groupingBy;
+
 public class WordChain {
 
-    public static void main(String[] args) throws IOException {
-        String firstWord = "cat";
-        String secondWord = "dog";
-        //        String firstWord = "lead";
-        //        String secondWord = "gold";
-        //        String firstWord = "ruby";
-        //        String secondWord = "code";
+    public static void main(String[] args) {
+        //        String firstWord = "cat";
+        //        String secondWord = "dog";
+        //                String firstWord = "lead";
+        //                String secondWord = "gold";
+        String firstWord = "ruby";
+        String secondWord = "code";
 
 
         Path path = Path.of("src/main/java/com/grad/kata19/wordlist.txt");
@@ -61,13 +62,7 @@ public class WordChain {
     }
 
     private static Map<Integer, List<String>> separateWordsByLength(Set<String> words) {
-        Map<Integer, List<String>> retMap = new HashMap<>();
-        for (String word : words) {
-            List<String> b = retMap.getOrDefault(word.length(), new ArrayList<>());
-            b.add(word);
-            retMap.put(word.length(), b);
-        }
-        return retMap;
+        return words.stream().collect(groupingBy(String::length));
     }
 
     private static Set<String> readFile(Path path) {
@@ -75,7 +70,9 @@ public class WordChain {
         try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.ISO_8859_1)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                words.add(line.toLowerCase());
+                if (!line.equals(line.toUpperCase())) {
+                    words.add(line.toLowerCase());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
