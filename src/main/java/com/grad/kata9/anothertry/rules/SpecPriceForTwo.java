@@ -5,7 +5,7 @@ import com.grad.kata9.anothertry.Item;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.grad.kata9.withrules.constant.SpecialPricesConstant.B_SPECIAL_PRICE_FOR_TWO;
+import static com.grad.kata9.constant.SpecialPricesConstant.B_SPECIAL_PRICE_FOR_TWO;
 
 public class SpecPriceForTwo implements Rule {
 
