@@ -3,6 +3,8 @@ package com.grad.kata18.withNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Node {
 
@@ -54,15 +56,28 @@ public class Node {
     }
 
     private String printingFunction(List<Node> list) {
+        StringBuilder names = new StringBuilder();
         if (!list.isEmpty()) {
-            StringBuilder names = new StringBuilder();
 
             for (Node node : list) {
-                names.append(" ").append(node.name);
-                printingFunction(node.getNodeList());
+                names.append(node.name);
+                String retDep = printingFunction(node.getNodeList());
+                if (names.indexOf(retDep) == -1) {
+                    names.append(retDep);
+                }
             }
-            return names.toString();
         }
-        return "";
+        return names.toString();
     }
+
+    static String removeDuplicate(String str) {
+        char[] chars = str.toCharArray();
+        Set<Character> s = new TreeSet<>();
+        // HashSet doesn't allow repetition of elements
+        for (char x : chars) {
+            s.add(x);
+        }
+        return s.toString();
+    }
+
 }
